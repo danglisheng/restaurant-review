@@ -60,9 +60,9 @@
 			var req=event.request;
 			/* 如果是对非字体资源的跨域请求，则将其改为“no-cors”模式*/
 		  var newreq=CORSReqNotForFont(req)?new Request(req.url,{mode:"no-cors"}):req;
-		  var restaurantBaseURL="http://localhost:8000/restaurant.html";
+		  var restaurantBaseURL="./restaurant.html";
 		  /*若请求的资源是restaurant.html,则直接从缓存中返回*/
-		  if(req.url.indexOf(restaurantBaseURL)!==-1){
+		  if(req.url.indexOf("restaurant.html")!==-1){
 		  	return event.respondWith(caches.open(currentCache).then((cache)=>
 		  		{
 		  			return cache.match(restaurantBaseURL);
