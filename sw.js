@@ -4,17 +4,17 @@
 		/* 此函数用来构造缓存URL数组。*/
 		function buildCachearr(){
 			cachearr=[
-			'/',
-			'/restaurant.html',
-			'/css/styles.css',
-			'/data/restaurants.json',
-			 '/js/dbhelper.js',
-			 '/js/main.js',
-			 '/js/restaurant_info.js',
-			 '/sw.js'
+			'./',
+			'./restaurant.html',
+			'./css/styles.css',
+			'./data/restaurants.json',
+			 './js/dbhelper.js',
+			 './js/main.js',
+			 './js/restaurant_info.js',
+			 './sw.js'
 			]
 			for(var i=1;i<11;i++) {
-				cachearr.push('img/'+i+'.jpg');
+				cachearr.push('./img/'+i+'.jpg');
 			}
 		}
 		/* 此函数用来判断是否是对
