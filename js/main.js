@@ -8,8 +8,10 @@ var markers = []
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
+  registerServiceWorker();
   fetchNeighborhoods();
   fetchCuisines();
+  //updateRestaurants();
 });
 
 /**
@@ -141,6 +143,7 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.setAttribute('alt',restaurant.name);
   li.append(image);
 
   const name = document.createElement('h1');
@@ -158,6 +161,8 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
+  var description='View Details about '+ restaurant.name;
+  more.setAttribute('aria-label',description);
   li.append(more)
 
   return li
@@ -174,5 +179,15 @@ addMarkersToMap = (restaurants = self.restaurants) => {
       window.location.href = marker.url
     });
     self.markers.push(marker);
+  });
+}
+/*
+ *注册一个service worker
+ *
+ */
+registerServiceWorker=()=>{
+  if (!navigator.serviceWorker) return;
+  navigator.serviceWorker.register('/sw.js',{scope:'/'}).then(function(reg){
+    console.log('Service worker registration succeeded:', reg);
   });
 }

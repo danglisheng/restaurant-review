@@ -19,11 +19,28 @@ window.initMap = () => {
     }
   });
 }
+var renderBreadcrumb=(error,restaurant) => {
+  if(error) {
+    console.error(error);
+  }
+  else {
+    fillBreadcrumb();
+  }
+}
 
 /**
  * Get current restaurant from page URL.
  */
 fetchRestaurantFromURL = (callback) => {
+  function renderrestaurantHTML(error,restaurant) {
+  self.restaurant = restaurant;
+  if(!restaurant) {
+      console.error(error);
+      return;
+  }
+  fillRestaurantHTML();
+  callback(null, restaurant);
+}
   if (self.restaurant) { // restaurant already fetched!
     callback(null, self.restaurant)
     return;
@@ -33,17 +50,10 @@ fetchRestaurantFromURL = (callback) => {
     error = 'No restaurant id in URL'
     callback(error, null);
   } else {
-    DBHelper.fetchRestaurantById(id, (error, restaurant) => {
-      self.restaurant = restaurant;
-      if (!restaurant) {
-        console.error(error);
-        return;
-      }
-      fillRestaurantHTML();
-      callback(null, restaurant)
-    });
+    DBHelper.fetchRestaurantById(id,renderrestaurantHTML);
   }
 }
+
 
 /**
  * Create restaurant HTML and add it to the webpage
@@ -56,7 +66,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   address.innerHTML = restaurant.address;
 
   const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img'
+  image.className = 'restaurant-img';
+  image.setAttribute('alt',restaurant.name);
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
   const cuisine = document.getElementById('restaurant-cuisine');
@@ -118,18 +129,27 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 createReviewHTML = (review) => {
   const li = document.createElement('li');
   const name = document.createElement('p');
+  const reviewheader=document.createElement('div');
+
+  reviewheader.classList.add('review-header','clearfix');
+  li.appendChild(reviewheader);
+
+  name.classList.add("customer-name");
   name.innerHTML = review.name;
-  li.appendChild(name);
+  reviewheader.appendChild(name);
 
   const date = document.createElement('p');
+  date.classList.add("review-date");
   date.innerHTML = review.date;
-  li.appendChild(date);
+  reviewheader.appendChild(date);
 
   const rating = document.createElement('p');
+  rating.classList.add("rating");
   rating.innerHTML = `Rating: ${review.rating}`;
   li.appendChild(rating);
 
   const comments = document.createElement('p');
+  comments.classList.add("comments");
   comments.innerHTML = review.comments;
   li.appendChild(comments);
 
@@ -161,3 +181,5 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+

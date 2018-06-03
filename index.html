@@ -23,20 +23,24 @@
     <section>
       <div class="filter-options">
         <h2>Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+        <label for="neighborhoods-select">neighborhoods</label>
+        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-describedby="area-description">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+        <div id="area-description" hidden>Choose the neighborhoods in which the restaurant you want to find locates.</div>
+        <label for="cuisines-select">cuisines</label>
+        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-describedby="cuisines-description">
           <option value="all">All Cuisines</option>
         </select>
+        <div id="cuisines-description" hidden>Choose the cuisine that you like to eat.</div>
       </div>
-      <ul id="restaurants-list"></ul>
+      <ul id="restaurants-list" class="clearfix"></ul>
     </section>
   </main>
 
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPsuXd8QnQHpXxLCZUlArx2F-7lcuiMV8&libraries=places&callback=initMap"></script>
+  <script async defer src="http://maps.google.cn/maps/api/js?key=AIzaSyCPsuXd8QnQHpXxLCZUlArx2F-7lcuiMV8&libraries=places&callback=initMap"></script>
 
 
   <footer id="footer">
