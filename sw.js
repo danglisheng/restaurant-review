@@ -5,7 +5,7 @@
 		function buildCachearr(){
 			cachearr=[
 			'./',
-			'./restaurant.html',
+			// './restaurant.html',
 			'./css/styles.css',
 			'./data/restaurants.json',
 			 './js/dbhelper.js',
@@ -34,6 +34,9 @@
 			buildCachearr();
 			event.waitUntil(
 				caches.open(currentCache).then((cache)=>{
+					fetch('./restaurant.html').then((response)=>{
+						cache.put('./restaurant.html',response);
+					})
 					return cache.addAll(cachearr);
 				}));
 			self.skipWaiting();
