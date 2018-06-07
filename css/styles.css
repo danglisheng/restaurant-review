@@ -67,11 +67,15 @@ label {
   clear:both;
 }
 /* ====================== Navigation ====================== */
-nav[aria-labelledby="nav1"] {
+nav{
   width: 100%;
   height: 80px;
   background-color: #252831;
   text-align:center;
+}
+nav[aria-label="Breadcrumb"]{
+  text-align: left;
+  height:auto;
 }
 nav h1 {
   margin: auto;
