@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -17,21 +17,25 @@
 
   <main id="maincontent">
     <section id="map-container">
-      <div id="map"></div>
+      <div id="map" role="application"></div>
     </section>
     <section>
       <div class="filter-options">
         <h2>Filter Results</h2>
-        <label for="neighborhoods-select">neighborhoods</label>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-describedby="area-description">
-          <option value="all">All Neighborhoods</option>
-        </select>
-        <div id="area-description" hidden>Choose the neighborhoods in which the restaurant you want to find locates.</div>
-        <label for="cuisines-select">cuisines</label>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-describedby="cuisines-description">
-          <option value="all">All Cuisines</option>
-        </select>
-        <div id="cuisines-description" hidden>Choose the cuisine that you like to eat.</div>
+        <div class="select-wrapper">
+          <label for="neighborhoods-select">neighborhoods</label>
+          <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-describedby="area-description">
+            <option value="all">All Neighborhoods</option>
+          </select>
+          <div id="area-description" hidden>Choose the neighborhoods in which the restaurant you want to find locates.</div>
+        </div>
+        <div class="select-wrapper">
+          <label for="cuisines-select">cuisines</label>
+          <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-describedby="cuisines-description">
+            <option value="all">All Cuisines</option>
+          </select>
+          <div id="cuisines-description" hidden>Choose the cuisine that you like to eat.</div>
+        </div>
       </div>
       <ul id="restaurants-list" class="clearfix"></ul>
     </section>

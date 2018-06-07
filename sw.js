@@ -5,7 +5,7 @@
 		function buildCachearr(){
 			cachearr=[
 			'./',
-			// './restaurant.html',
+			'./restaurant.html',
 			'./css/styles.css',
 			'./data/restaurants.json',
 			 './js/dbhelper.js',
@@ -34,9 +34,11 @@
 			buildCachearr();
 			event.waitUntil(
 				caches.open(currentCache).then((cache)=>{
-					fetch('./restaurant.html').then((response)=>{
-						cache.put('./restaurant.html',response);
+					var url="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPsuXd8QnQHpXxLCZUlArx2F-7lcuiMV8&libraries=places&callback=initMap";
+					fetch(url,{mode:"no-cors"}).then((response)=>{
+						cache.put(url,response);
 					})
+					
 					return cache.addAll(cachearr);
 				}));
 			self.skipWaiting();
@@ -80,7 +82,6 @@
 		      return cache.match(req).then(function (response) {
 		        return response || 
 		        fetch(newreq).then(function(response) {
-		          cache.put(event.request, response.clone());
 		          return response;
 		        }).
 		        catch(function(error){
